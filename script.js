@@ -11,7 +11,7 @@ function makeNotes(words) {
     let notes = []
     words.forEach( (e, i) => {
         getData(e)
-        notes[i] = idk
+        notes[i]
     })
     definitions = notes
     examples = definitions
@@ -20,14 +20,16 @@ function makeNotes(words) {
 
 function getData(word) {
     let link = "https://api.dictionaryapi.dev/api/v2/entries/en/" + word
-    var defs, exes, tags;
     data = $.getJSON(link, data => {
-        defs = data[0].meanings[0].definitions;
-        exes = data[0].meanings[0].definitions;
-        tags = data[0].meanings[0].partOfSpeech;
+        let defs, exes, tags = " ";
+        console.log(data);
+        data[0].meanings.forEach( (e, i) => {
+            defs += i+1 + "." + " " + e.definitions.definition + "\n\n";
+            exes += i+1 + "." + " " + e.definitions.example + "\n\n";
+            tags += e.definitions.partOfSpeech + " ";
+        });
+        console.log(defs, exes, tags);
     })
-    text = word + "\t" + defs + "\t" + exes + "\t" + tags;
-    console.log(data)
 }
 
 function download(data, filename, type) {
