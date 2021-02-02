@@ -3,15 +3,14 @@ let wordsInput = $('#wordsInput');
 
 makeButton.click(function() {
     let words = wordsInput.val().split("\n");
-    let notes = makeNotes(words)
-    download(notes.join("\n"), "words", ".txt")
+    let notes = makeNotes(words);
+    //download(notes.join("\n"), "words", ".txt")
     })
 
 function makeNotes(words) {
     let notes = []
     words.forEach( (e, i) => {
-        getData(e)
-        notes[i]
+        console.log(getData(e))
     })
     definitions = notes
     examples = definitions
@@ -19,16 +18,21 @@ function makeNotes(words) {
 }
 
 function getData(word) {
-    let link = "https://api.dictionaryapi.dev/api/v2/entries/en/" + word
-    data = $.getJSON(link, data => {
-        let defs, exes, tags = " ";
-        console.log(data);
-        data[0].meanings.forEach( (e, i) => {
-            defs += i+1 + "." + " " + e.definitions.definition + "\n\n";
-            exes += i+1 + "." + " " + e.definitions.example + "\n\n";
-            tags += e.definitions.partOfSpeech + " ";
+    let link = "https://api.dictionaryapi.dev/api/v2/entries/en/" + word;
+    defs = "", exes = "", tags = "", note = "";
+
+    $.getJSON(link, data => {    
+        console.log(data[0].meanings.length)
+        if (data[0].meanings.length == 0) return null
+        data[0].meanings.forEach( e => {    
+            e.definitions.forEach( (e, i) => {
+                defs += i+1 + "." + " " + e.definition + "\n\n";
+                exes += i+1 + "." + " " + e.example + "\n\n";
+            })
+            tags += e.partOfSpeech + " ";
         });
-        console.log(defs, exes, tags);
+        note = defs + "\t" + exes + "\t" + tags;
+        return note;
     })
 }
 
