@@ -21,7 +21,8 @@ function makeNotes(words, callback) {
             })
             tags += e.partOfSpeech + " ";
             })
-        
+            
+            console.log(data[0].word);
             notes.push(data[0].word + "\t" + defs + "\t" + exes + "\t" + tags);
         })
         .fail(() => {
