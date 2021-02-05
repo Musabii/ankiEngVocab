@@ -16,8 +16,8 @@ function makeNotes(words, callback) {
             if (data[0].meanings.length == 0) return fails.push(word);
             data[0].meanings.forEach( e => {
             e.definitions.forEach( (e, i) => {
-                defs += i+1 + "." + " " + e.definition + " ";
-                exes += i+1 + "." + " " + e.example + " ";
+                defs += i+1 + "." + " " + e.definition + "<br>";
+                exes += i+1 + "." + " " + e.example + "<br>";
             })
             tags += e.partOfSpeech + " ";
             })
