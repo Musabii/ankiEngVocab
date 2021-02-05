@@ -22,7 +22,7 @@ function makeNotes(words, callback) {
             tags += e.partOfSpeech + " ";
             })
         
-            notes.push(word + "\t" + defs + "\t" + exes + "\t" + tags);
+            notes.push(data[0].word + "\t" + defs + "\t" + exes + "\t" + tags);
         })
         .fail(() => {
             fails.push(word);
